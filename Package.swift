@@ -20,9 +20,14 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "CherrystudiosGameKit",
-            dependencies: []),
+            dependencies: [],
+            path: "Sources"
+        ),
         .testTarget(
             name: "CherrystudiosGameKitTests",
-            dependencies: ["CherrystudiosGameKit"]),
+            dependencies: ["CherrystudiosGameKit"],
+            path: "Tests"
+        
+        ),
     ]
 )
