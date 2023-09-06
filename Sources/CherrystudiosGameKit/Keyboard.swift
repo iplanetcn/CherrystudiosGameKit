@@ -7,7 +7,7 @@
 
 import AppKit
 
-enum Key: CUnsignedShort {
+public enum Key: CUnsignedShort {
     case A = 0x00 // = 0
     case S = 0x01
     case D = 0x02
@@ -131,11 +131,11 @@ enum Key: CUnsignedShort {
     case Count = 0x7F
 }
 
-struct KeyState {
+public struct KeyState {
     var keys = Array(repeating: false, count: Int(Key.Count.rawValue))
 }
 
-class Keyboard {
+public class Keyboard {
     static let sharedKeyboard = Keyboard()
 
     var prev: KeyState
