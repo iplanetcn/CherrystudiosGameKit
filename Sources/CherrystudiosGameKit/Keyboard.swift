@@ -146,7 +146,7 @@ public class Keyboard {
         curr = KeyState()
     }
 
-    func handleKey(event: NSEvent, isDown: Bool) {
+    public func handleKey(event: NSEvent, isDown: Bool) {
         if isDown {
             curr.keys[Int(event.keyCode)] = true
         } else {
@@ -154,7 +154,7 @@ public class Keyboard {
         }
     }
     
-    func justPressed(_ keys: Key...) -> Bool {
+    public func justPressed(_ keys: Key...) -> Bool {
         for key in keys {
             if curr.keys[Int(key.rawValue)] == true && prev.keys[Int(key.rawValue)] == false {
                 return true
@@ -163,7 +163,7 @@ public class Keyboard {
         return false
     }
 
-    func justReleased(_ keys: Key...) -> Bool {
+    public func justReleased(_ keys: Key...) -> Bool {
         for key in keys {
             if prev.keys[Int(key.rawValue)] == true && curr.keys[Int(key.rawValue)] == false {
                 return true
@@ -172,7 +172,7 @@ public class Keyboard {
         return false
     }
 
-    func pressed(_ keys: Key...) -> Bool {
+    public func pressed(_ keys: Key...) -> Bool {
         for key in keys {
             if prev.keys[Int(key.rawValue)] == true && curr.keys[Int(key.rawValue)] == true {
                 return true
@@ -181,7 +181,7 @@ public class Keyboard {
         return false
     }
 
-    func update() {
+    public func update() {
         prev = curr
     }
 }
