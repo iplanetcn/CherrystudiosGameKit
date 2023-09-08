@@ -5,6 +5,7 @@
 //  Copyright (c) 2015 Bojan Percevic. All rights reserved.
 //
 
+#if os(macOS)
 import AppKit
 
 public enum Key: CUnsignedShort {
@@ -185,3 +186,5 @@ public class Keyboard {
         prev = curr
     }
 }
+
+#endif
