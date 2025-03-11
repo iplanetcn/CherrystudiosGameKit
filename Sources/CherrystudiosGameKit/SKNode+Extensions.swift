@@ -2,6 +2,7 @@ import SpriteKit
 
 public extension SKNode {
     // MARK: - Computed Property
+
     /// Lets you treat the node's scale as a CGPoint value.
     var scaleAsPoint: CGPoint {
         get {
@@ -12,22 +13,23 @@ public extension SKNode {
             yScale = newValue.y
         }
     }
-    
+
     // MARK: - Instance Methods
+
     /// Runs an action on the node that performs a closure or function after
     /// a given time.
     func afterDelay(_ delay: TimeInterval, runBlock block: @escaping () -> Void) {
         run(SKAction.sequence([SKAction.wait(forDuration: delay), SKAction.run(block)]))
     }
-    
+
     /// Makes this node the frontmost node in its parent.
     func bringToFront() {
-        if let parent = self.parent{
+        if let parent = parent {
             removeFromParent()
             parent.addChild(self)
         }
     }
-    
+
     /// Orients the node in the direction that it is moving by tweening its
     /// rotation angle. This assumes that at 0 degrees the node is facing up.
     ///
@@ -41,8 +43,8 @@ public extension SKNode {
         // current velocity of its physics body. This assumes that at 0 degrees the
         // node is pointed up, not to the right, so to compensate we subtract π/4
         // (90 degrees) from the calculated angle.
-        let newAngle = atan2(velocity.dy, velocity.dx) - π/2
-        
+        let newAngle = atan2(velocity.dy, velocity.dx) - π / 2
+
         // This always makes the node rotate over the shortest possible distance.
         // Because the range of atan2() is -180 to 180 degrees, a rotation from,
         // -170 to -190 would otherwise be from -170 to 170, which makes the node
@@ -53,7 +55,7 @@ public extension SKNode {
         } else if zRotation - newAngle > π {
             zRotation -= π * 2.0
         }
-        
+
         // Use the "standard exponential slide" to slowly tween zRotation to the
         // new angle. The greater the value of rate, the faster this goes.
         zRotation += (newAngle - zRotation) * rate

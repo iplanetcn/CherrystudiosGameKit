@@ -3,6 +3,7 @@ import SpriteKit
 
 public extension CGPoint {
     // MARK: - Computed Property
+
     /// Returns the angle in radians of the vector described by the CGPoint.
     /// The range of the angle is -π to π; an angle of 0 points to the right.
     var angle: CGFloat {
@@ -10,6 +11,7 @@ public extension CGPoint {
     }
 
     // MARK: - Initializers
+
     /// Creates a new CGPoint given a CGVector.
     init(vector: CGVector) {
         self.init(x: vector.dx, y: vector.dy)
@@ -22,20 +24,24 @@ public extension CGPoint {
     }
 
     // MARK: - Mutating Methods
+
     /// Normalizes the vector described by the CGPoint to length 1.0.
-    mutating func normalize() -> CGPoint {
+    @discardableResult
+    mutating func normalize() -> Self {
         self = normalized()
         return self
     }
 
     /// Adds (dx, dy) to the point.
-    mutating func offset(dx: CGFloat, dy: CGFloat) -> CGPoint {
+    @discardableResult
+    mutating func offset(dx: CGFloat, dy: CGFloat) -> Self {
         x += dx
         y += dy
         return self
     }
 
     // MARK: - Normal Methods
+
     /// Returns the length (magnitude) of the vector described by the CGPoint.
     func length() -> CGFloat {
         return sqrt(x * x + y * y)
@@ -57,10 +63,10 @@ public extension CGPoint {
     func distanceTo(_ point: CGPoint) -> CGFloat {
         return (self - point).length()
     }
-
 }
 
 // MARK: - Associated Functions
+
 /// Adds two CGPoint values and returns the result as a new CGPoint.
 public func + (left: CGPoint, right: CGPoint) -> CGPoint {
     return CGPoint(x: left.x + right.x, y: left.y + right.y)

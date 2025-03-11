@@ -3,12 +3,14 @@ import SpriteKit
 
 public extension CGVector {
     // MARK: - Computed Property
+
     /// Returns the angle in radians of the vector described by the CGVector. The range of the angle is -π to π; an angle of 0 points to the right.
     var angle: CGFloat {
         return atan2(dy, dx)
     }
-    
+
     // MARK: - Initializers
+
     /// Creates a new CGVector given a CGPoint.
     init(point: CGPoint) {
         self.init(dx: point.x, dy: point.y)
@@ -20,57 +22,68 @@ public extension CGVector {
     }
 
     // MARK: - Mutating Methods
+
     // Adds (dx, dy) to the vector.
-    mutating func offset(dx: CGFloat, dy: CGFloat) -> CGVector {
+    @discardableResult
+    mutating func offset(dx: CGFloat, dy: CGFloat) -> Self {
         self.dx += dx
         self.dy += dy
         return self
     }
 
     /// Normalizes the vector described by the CGVector to length 1.0.
-    mutating func normalize() -> CGVector {
+    @discardableResult
+    mutating func normalize() -> Self {
         self = normalized()
         return self
     }
 
-    mutating func setMag(_ mag: CGFloat) {
-        let normalizedVector = normalized()
-        self = CGVector(dx: normalizedVector.dx * mag, dy: normalizedVector.dy * mag)
-    }
-    
-    mutating func div(_ mag: CGFloat) {
-        if mag == 0 {
-            return
-        }
-        
-        self = CGVector(dx: self.dx/mag, dy: dy/mag)
-    }
-    
-    mutating func limit(_ mag: CGFloat) {
-        let currentMag = sqrt(dx * dx + dy * dy)
-        if currentMag > mag {
-            let ratio = mag / currentMag
-            self = CGVector(dx: dx * ratio, dy: dy * ratio)
-        }
+    /// Set Vector's Magnititude
+    @discardableResult
+    mutating func setMag(_ mag: CGFloat) -> Self {
+        let normal = normalized()
+        self = CGVector(dx: normal.dx * mag, dy: normal.dy * mag)
+        return self
     }
 
-    mutating func add(_ vector: CGVector) {
+    /// Calculate average vector into N
+    @discardableResult
+    mutating func div(_ n: CGFloat) -> Self {
+        if n == 0 {
+            return self
+        }
+        self = CGVector(dx: dx / n, dy: dy / n)
+        return self
+    }
+
+    /// Limit the vector's length
+    @discardableResult
+    mutating func limit(_ length: CGFloat) -> Self {
+        let len = self.length()
+        if len > length {
+            let ratio = length / len
+            self = CGVector(dx: dx * ratio, dy: dy * ratio)
+        }
+
+        return self
+    }
+
+    /// Add a vector to self
+    @discardableResult
+    mutating func add(_ vector: CGVector) -> Self {
         self = CGVector(dx: dx + vector.dx, dy: dy + vector.dy)
+        return self
     }
-    
-    mutating func sub(_ vector: CGVector) {
+
+    /// Subtraction a vector from self
+    @discardableResult
+    mutating func sub(_ vector: CGVector) -> Self {
         self = CGVector(dx: dx - vector.dx, dy: dy - vector.dy)
-    }
-    
-    static func add(_ a:CGVector, _ b: CGVector) -> CGVector {
-        return CGVector(dx: a.dx + b.dx, dy: a.dy + b.dy)
-    }
-    
-    static func sub(_ a:CGVector, _ b: CGVector) -> CGVector {
-        return CGVector(dx: a.dx - b.dx, dy: a.dy - b.dy)
+        return self
     }
 
     // MARK: - Normal Methods
+
     /// Returns a copy of the vector.
     func copy() -> CGVector {
         return CGVector(dx: dx, dy: dy)
@@ -97,10 +110,21 @@ public extension CGVector {
         return (self - vector).length()
     }
 
-    // MARK: - Static Methods
+    // MARK: - Static Methods, those methods can be replaced with opertator functions
+
+    /// Calculates the Sum of two vectors
+    static func add(_ a: CGVector, _ b: CGVector) -> CGVector {
+        return CGVector(dx: a.dx + b.dx, dy: a.dy + b.dy)
+    }
+
+    /// Calculate the Subtraction of two vectors
+    static func sub(_ a: CGVector, _ b: CGVector) -> CGVector {
+        return CGVector(dx: a.dx - b.dx, dy: a.dy - b.dy)
+    }
 }
 
 // MARK: - Associated Functions
+
 /// Adds two CGVector values and returns the result as a new CGVector.
 public func + (left: CGVector, right: CGVector) -> CGVector {
     return CGVector(dx: left.dx + right.dx, dy: left.dy + right.dy)
