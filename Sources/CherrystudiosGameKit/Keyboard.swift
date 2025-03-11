@@ -1,10 +1,3 @@
-//
-//  Keyboard.swift
-//
-//  Created by Bojan Percevic on 5/21/15.
-//  Copyright (c) 2015 Bojan Percevic. All rights reserved.
-//
-
 #if os(macOS)
 import AppKit
 

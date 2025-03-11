@@ -1,33 +1,9 @@
-/*
- * Copyright (c) 2013-2014 Razeware LLC
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
 import SpriteKit
 
-/**
- * Allows you to perform actions with custom timing functions.
- *
- * Unfortunately, SKAction does not have a concept of a timing function, so
- * we need to replicate the actions using SKTEffect subclasses.
- */
+/// Allows you to perform actions with custom timing functions.
+///
+/// Unfortunately, SKAction does not have a concept of a timing function, so
+/// we need to replicate the actions using SKTEffect subclasses.
 public class SKTEffect {
     unowned var node: SKNode
     var duration: TimeInterval
@@ -44,9 +20,7 @@ public class SKTEffect {
     }
 }
 
-/**
- * Moves a node from its current position to a new position.
- */
+/// Moves a node from its current position to a new position.
 public class SKTMoveEffect: SKTEffect {
     var startPosition: CGPoint
     var delta: CGPoint
@@ -69,9 +43,7 @@ public class SKTMoveEffect: SKTEffect {
     }
 }
 
-/**
- * Scales a node to a certain scale factor.
- */
+/// Scales a node to a certain scale factor.
 public class SKTScaleEffect: SKTEffect {
     var startScale: CGPoint
     var delta: CGPoint
@@ -93,9 +65,7 @@ public class SKTScaleEffect: SKTEffect {
     }
 }
 
-/**
- * Rotates a node to a certain angle.
- */
+/// Rotates a node to a certain angle.
 public class SKTRotateEffect: SKTEffect {
     var startAngle: CGFloat
     var delta: CGFloat
@@ -116,9 +86,7 @@ public class SKTRotateEffect: SKTEffect {
     }
 }
 
-/**
- * Wrapper that allows you to use SKTEffect objects as regular SKActions.
- */
+/// Wrapper that allows you to use SKTEffect objects as regular SKActions.
 public extension SKAction {
     class func actionWithEffect(_ effect: SKTEffect) -> SKAction {
         return SKAction.customAction(withDuration: effect.duration) { node, elapsedTime in
