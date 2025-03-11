@@ -1,6 +1,7 @@
-# CherrystudiosGameKit
-
-[![Build Status](https://github.com/iplanetcn/CherrystudiosGameKit/actions/workflows/swift.yml/badge.svg)](https://github.com/iplanetcn/CherrystudiosGameKit/actions/workflows/swift.yml)
+CherrystudiosGameKit
+---
+[![Build Status](https://github.com/iplanetcn/CherrystudiosGameKit/actions/workflows/swift.yml/badge.svg)](https://github.com/iplanetcn/CherrystudiosGameKit/actions/workflows/swift.yml) 
+[English](README.md) | [简体中文](README.CN.md)
 
 A Swift package providing helpful game development utilities and extensions for SpriteKit and CoreGraphics.
 
