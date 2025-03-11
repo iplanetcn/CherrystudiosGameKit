@@ -5,18 +5,33 @@ name: Swift
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
-
     runs-on: macos-latest
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Build
-      run: swift build -v
-    - name: Run tests
-      run: swift test -v
+      - uses: actions/checkout@v4
+      - name: Build
+        run: swift build -v
+      - name: Run tests
+        run: swift test -v
+
+  release:
+    needs: build
+    runs-on: macos-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Release
+        run: swift build -c release
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            .build/release/CherrystudiosGameKit
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
